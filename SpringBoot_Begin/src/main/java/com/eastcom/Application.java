@@ -22,6 +22,9 @@ import com.eastcom.configuration.MyConfiguration_Value;
  * 
  * @SpringBootApplication注解相当于@ComponentScan、@Configuration、@EnableAutoConfiguration这三个注解，
  * 所以可用下面两个代替@SpringBootApplication注解，程序一样可以启动
+ * 
+ * --spring.config.location=classpath:/config/application.properties
+ * --spring.config.location=file:E:\AllWorkSpace\custom.properties
  */
 /**
  * @author:yaobiao
@@ -35,5 +38,7 @@ public class Application {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 		System.out.println(context.getBean(MyConfiguration_Value.class).toString());
 		System.out.println(context.getBean(MyConfiguration_Properties.class).toString());
+		System.out.println(context.getEnvironment().getProperty("com.eastcom.index"));
+		System.out.println(context.getEnvironment().getProperty("file.property"));
 	}
 }
