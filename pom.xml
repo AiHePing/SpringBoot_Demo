@@ -68,4 +68,7 @@
 		</plugins>
 	</build>
 	
+	<modules>
+		<module>SpringBoot_Begin</module>
+	</modules>
 </project>
