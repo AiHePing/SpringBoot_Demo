@@ -70,5 +70,6 @@
 	
 	<modules>
 		<module>SpringBoot_Begin</module>
+		<module>SpringBoot_HelloWorld</module>
 	</modules>
 </project>

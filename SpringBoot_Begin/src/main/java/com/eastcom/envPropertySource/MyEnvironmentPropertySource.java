@@ -21,13 +21,15 @@ public class MyEnvironmentPropertySource implements EnvironmentPostProcessor {
 	@Override
 	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
 		
+		FileInputStream fileInputStream;
 		try {
-			FileInputStream fileInputStream = new FileInputStream(new File("E:\\AllWorkSpace\\custom.properties"));
+			fileInputStream = new FileInputStream(new File("E:\\AllWorkSpace\\custom.properties"));
 			
 			Properties properties = new Properties();
 			properties.load(fileInputStream);
 			
 			PropertiesPropertySource propertySource = new PropertiesPropertySource("my", properties);
+			
 			environment.getPropertySources().addLast(propertySource);
 			
 		} catch (FileNotFoundException e) {
