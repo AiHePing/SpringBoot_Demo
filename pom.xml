@@ -71,5 +71,6 @@
 	<modules>
 		<module>SpringBoot_PropertiesFile</module>
 		<module>SpringBoot_HelloWorld</module>
+		<module>SpringBoot_Condition</module>
 	</modules>
 </project>

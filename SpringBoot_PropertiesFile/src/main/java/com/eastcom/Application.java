@@ -38,9 +38,10 @@ public class Application {
 		MyConfiguration_Properties myConfiguration_Properties = context.getBean(MyConfiguration_Properties.class);
 		System.out.println(myConfiguration_Properties.toString());
 		
-		System.out.println(context.getEnvironment().getProperty("us.name"));
 		System.out.println(context.getEnvironment().getProperty("com.eastcom.index"));
-//		System.out.println(context.getEnvironment().getProperty("file.property"));
+		
+		System.out.println(context.getEnvironment().getProperty("file.property"));
+		System.out.println(context.getEnvironment().getProperty("file.list"));
 		context.close();
 	}
 }
