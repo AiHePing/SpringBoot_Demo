@@ -1,5 +1,7 @@
 package com.eastcom.configuration;
 
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 /**
@@ -12,7 +14,9 @@ public class MyConfiguration_Properties {
 	
 	private String name;
 	
-	private Integer age;
+	private String version;
+	
+	private List<String> listName;
 
 	public String getName() {
 		return name;
@@ -22,16 +26,25 @@ public class MyConfiguration_Properties {
 		this.name = name;
 	}
 
-	public Integer getAge() {
-		return age;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
+	public List<String> getListName() {
+		return listName;
+	}
+
+	public void setListName(List<String> listName) {
+		this.listName = listName;
 	}
 
 	@Override
 	public String toString() {
-		return "MyConfiguration_Properties [name=" + name + ", age=" + age + "]";
+		return "MyConfiguration_Properties [name=" + name + ", version=" + version + ", listName=" + listName + "]";
 	}
+	
 }

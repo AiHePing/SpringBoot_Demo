@@ -1,10 +1,8 @@
 package com.eastcom;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import com.eastcom.configuration.MyConfiguration_Properties;
 import com.eastcom.configuration.MyConfiguration_Value;
@@ -30,15 +28,19 @@ import com.eastcom.configuration.MyConfiguration_Value;
  * @author:yaobiao
  * @date:2019年3月13日下午3:39:14
  */
-//@SpringBootApplication
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Application {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-		System.out.println(context.getBean(MyConfiguration_Value.class).toString());
-		System.out.println(context.getBean(MyConfiguration_Properties.class).toString());
+		MyConfiguration_Value myConfiguration_Value = context.getBean(MyConfiguration_Value.class);
+		System.out.println(myConfiguration_Value.toString());
+		
+		MyConfiguration_Properties myConfiguration_Properties = context.getBean(MyConfiguration_Properties.class);
+		System.out.println(myConfiguration_Properties.toString());
+		
+		System.out.println(context.getEnvironment().getProperty("us.name"));
 		System.out.println(context.getEnvironment().getProperty("com.eastcom.index"));
-		System.out.println(context.getEnvironment().getProperty("file.property"));
+//		System.out.println(context.getEnvironment().getProperty("file.property"));
+		context.close();
 	}
 }

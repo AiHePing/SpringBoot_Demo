@@ -8,7 +8,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class AppActiveProfile {
 	public static void main(String[] args) {
 		SpringApplication application = new SpringApplication(AppActiveProfile.class);
-		application.setAdditionalProfiles("dev","prod");
+//		application.setAdditionalProfiles("dev","prod");
 		ConfigurableApplicationContext context = application.run(args);
+		context.close();
 	}
 }

@@ -1,5 +1,7 @@
 package com.eastcom.configuration;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 /**
@@ -13,8 +15,11 @@ public class MyConfiguration_Value {
 	@Value("${com.eastcom.name:boot}")
 	private String name;
 	
-	@Value("${com.eastcom.age}")
-	private Integer age;
+	@Value("${com.eastcom.version}")
+	private String version;
+	
+	@Value("${com.eastcom.listName}")
+	private List<String> listName;
 
 	public String getName() {
 		return name;
@@ -24,16 +29,24 @@ public class MyConfiguration_Value {
 		this.name = name;
 	}
 
-	public Integer getAge() {
-		return age;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	
+	public List<String> getListName() {
+		return listName;
+	}
+
+	public void setListName(List<String> listName) {
+		this.listName = listName;
 	}
 
 	@Override
 	public String toString() {
-		return "MyConfiguration_Value [name=" + name + ", age=" + age + "]";
+		return "MyConfiguration_Value [name=" + name + ", version=" + version + ", listName=" + listName + "]";
 	}
 }
