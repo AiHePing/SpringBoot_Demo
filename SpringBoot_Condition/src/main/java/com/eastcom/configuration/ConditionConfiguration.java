@@ -1,17 +1,16 @@
 package com.eastcom.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
+import org.springframework.core.env.Environment;
 
 import com.eastcom.bean.UserBean;
 import com.eastcom.interfaces.condition_impl.GBKConditionImpl;
-import com.eastcom.interfaces.condition_impl.UTF8ConditionImpl;
-import com.eastcom.interfaces.convent_impl.ConventGBKImpl;
-import com.eastcom.interfaces.convent_impl.ConventUTF8Impl;
 /*
  * Condition接口：里面只有一个方法，返回boolean值，true装配bean，false不装配bean
  * 
@@ -29,43 +28,30 @@ import com.eastcom.interfaces.convent_impl.ConventUTF8Impl;
  */
 @SpringBootConfiguration
 public class ConditionConfiguration {
+	@Autowired
+	Environment env;
 	
 	@Bean
 	@Conditional(GBKConditionImpl.class)
-	public ConventGBKImpl conventGBKImpl() {
-		return new ConventGBKImpl();
-	}
-	
-	@Bean 
-	@Conditional(UTF8ConditionImpl.class)
-	public ConventUTF8Impl conventUTF8Impl() {
-		return new ConventUTF8Impl();
-	}
-	
-	@Bean
-	@Conditional({/*GBKConditionImpl.class,*/UTF8ConditionImpl.class})
 	public UserBean userBean() {
 		return new UserBean();
 	}
-	
+	//存在配置flag=true才装配
 	@Bean
-	@ConditionalOnProperty(name="flag",havingValue="true")
+	@ConditionalOnProperty(name="flag",havingValue="true",matchIfMissing=true)
 	public Runnable runnable() {
-		System.out.println("存在属性 flag，值为true");
 		return ()->{};
 	}
-	
+	//指定类路径中存在ConfigurableApplicationContext类才装配
 	@Bean
-	@ConditionalOnClass(/*UTF8ConditionImpl.class*/name="org.springframework.context.ConfigurableApplicationContext")
+	@ConditionalOnClass(name="org.springframework.context.ConfigurableApplicationContext")
 	public Runnable runnable2() {
-		System.out.println("存在类UTF8ConditionImpl");
 		return ()->{};
 	}
-	
+	//容器中存在UserBean才装配
 	@Bean
 	@ConditionalOnBean(UserBean.class)
 	public Runnable runnable3() {
-		System.out.println("容器中存在bean:UserBean");
 		return ()->{};
 	}
 }
