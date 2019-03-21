@@ -9,16 +9,31 @@ import java.lang.annotation.Target;
 
 import org.springframework.context.annotation.Import;
 
-import com.eastcom.impl.beanRegistrar.EnableFlagBeanRegistrar;
-import com.eastcom.impl.importSelector.EnableFlagImportSelector;
+import com.eastcom.impl.beanRegistrar.EnableFlag_BeanRegistrar;
+import com.eastcom.impl.importSelector.EnableFlag_ImportSelector;
 
+/**
+ * 自定义注解，装配bean
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-//@Import(EnableFlagImportSelector.class)//ImportSelector方式
-@Import(EnableFlagBeanRegistrar.class)//ImportBeanDefinitionRegistrar方式
+//@Import(EnableFlagImportSelector.class)
+@Import(EnableFlag_BeanRegistrar.class)
 public @interface EnableFlag {
+	
+	/**
+	 * bean的完全限定名称
+	 * @return
+	 */
 	String[] strName() default {};
+	
+	/**
+	 * bean的class对象
+	 * @return
+	 */
 	Class<?>[] value() default {};
 }
+//ImportSelector方式,名字是类名第一个字母小写，两种参数方式都行
+//ImportBeanDefinitionRegistrar方式两种参数方式都行，名字就是类名
