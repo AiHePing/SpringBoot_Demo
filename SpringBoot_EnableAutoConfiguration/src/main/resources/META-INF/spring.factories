@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.eastcom.outside.bean.OutSideBean,com.eastcom.outside.config.OutsideConfiguration
