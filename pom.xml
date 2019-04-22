@@ -73,5 +73,6 @@
 		<module>SpringBoot_HelloWorld</module>
 		<module>SpringBoot_Condition</module>
 		<module>SpringBoot_EnableAutoConfiguration</module>
+		<module>SpringBoot_Interface</module>
 	</modules>
 </project>
