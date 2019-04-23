@@ -21,7 +21,7 @@ public class Application{
 //		context.publishEvent(event);
 		System.out.println(context.getEnvironment().getPropertySources().get("commandLineArgs").getProperty("spring.config.location"));
 		System.out.println("name:"+arguments.getOptionNames()+" , value："+arguments.getOptionValues("spring.config.location"));
-		context.close();
+//		context.close();
 		
 		
 	}
