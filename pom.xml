@@ -74,5 +74,6 @@
 		<module>SpringBoot_Condition</module>
 		<module>SpringBoot_EnableAutoConfiguration</module>
 		<module>SpringBoot_Interface</module>
+		<module>SpringBoot_Jdbc</module>
 	</modules>
 </project>
