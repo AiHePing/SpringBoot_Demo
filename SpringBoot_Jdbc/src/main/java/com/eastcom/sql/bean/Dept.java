@@ -1,17 +1,17 @@
 package com.eastcom.sql.bean;
 
 public class Dept {
-    private Short deptno;
+    private Integer deptno;
 
     private String dname;
 
     private String location;
 
-    public Short getDeptno() {
+    public Integer getDeptno() {
         return deptno;
     }
 
-    public void setDeptno(Short deptno) {
+    public void setDeptno(Integer deptno) {
         this.deptno = deptno;
     }
 
@@ -30,4 +30,19 @@ public class Dept {
     public void setLocation(String location) {
         this.location = location;
     }
+
+	public Dept(Integer deptno, String dname, String location) {
+		super();
+		this.deptno = deptno;
+		this.dname = dname;
+		this.location = location;
+	}
+    public Dept() {
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Dept [deptno=" + deptno + ", dname=" + dname + ", location=" + location + "]";
+	}
+    
 }

@@ -20,8 +20,8 @@ public class DeptService {
 		return deptDao.insert(dept);
 	}
 	
-	public Integer update(Integer id,Dept dept) {
-		return deptDao.update(id,dept);
+	public Integer updateById(Integer id,Dept dept) {
+		return deptDao.updateById(id,dept);
 	}
 	
 	public Integer deleteById(Integer id) {

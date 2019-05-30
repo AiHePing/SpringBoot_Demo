@@ -8,7 +8,7 @@ public interface IDeptDao {
 	
 	public Integer insert(Dept dept);
 	
-	public Integer update(Integer id,Dept dept);
+	public Integer updateById(Integer id,Dept dept);
 	
 	public Integer deleteById(Integer id);
 }

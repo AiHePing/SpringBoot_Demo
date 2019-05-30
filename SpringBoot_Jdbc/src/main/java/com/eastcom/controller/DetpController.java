@@ -1,5 +1,8 @@
 package com.eastcom.controller;
 
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -7,10 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eastcom.service.DeptService;
 import com.eastcom.sql.bean.Dept;
 import com.eastcom.sql.bean.JsonResult;
+import com.eastcom.sql.bean.ParamDto;
+import com.eastcom.sql.bean.Status;
 
 @Controller
 @RequestMapping("/jdbc")
@@ -24,9 +30,9 @@ public class DetpController {
 		try {
 			Dept data = deptService.selectById(id);
 			result.setData(data);
-			result.setStatus("ok");
+			result.setStatus(Status.OK);
 		} catch (Exception e) {
-			result.setStatus("error");
+			result.setStatus(Status.ERROR);
 			result.setData(e.getClass()+":"+e.getMessage());
 			e.printStackTrace();
 		}
@@ -44,9 +50,9 @@ public class DetpController {
 		try {
 			Integer insert = deptService.insert(dept);
 			result.setData(insert);
-			result.setStatus("ok");
+			result.setStatus(Status.OK);
 		} catch (Exception e) {
-			result.setStatus("error");
+			result.setStatus(Status.ERROR);
 			result.setData(e.getClass()+":"+e.getMessage());
 			e.printStackTrace();
 		}
@@ -54,14 +60,15 @@ public class DetpController {
 	}
 	
 	@PostMapping(value="/update")
-	public ResponseEntity<JsonResult> update(Integer id,@RequestBody Dept dept){
+	public ResponseEntity<JsonResult> update(@RequestBody ParamDto dto){
 		JsonResult result = new JsonResult();
 		try {
-			Integer update = deptService.update(id,dept);
+			System.out.println("dto:"+ dto.toString());
+			Integer update = deptService.updateById(dto.getId(),dto.getDept());
 			result.setData(update);
-			result.setStatus("ok");
+			result.setStatus(Status.OK);
 		} catch (Exception e) {
-			result.setStatus("error");
+			result.setStatus(Status.ERROR);
 			result.setData(e.getClass()+":"+e.getMessage());
 			e.printStackTrace();
 		}
@@ -69,17 +76,27 @@ public class DetpController {
 	}
 	
 	@PostMapping(value="/delete")
-	public ResponseEntity<JsonResult> delete(Integer id){
+	public ResponseEntity<JsonResult> delete(@RequestParam("id") String id,HttpServletRequest request){
 		JsonResult result = new JsonResult();
 		try {
-			Integer delete = deptService.deleteById(id);
+			System.out.println("id :"+id);
+			Integer delete = deptService.deleteById(Integer.parseInt(id));
 			result.setData(delete);
-			result.setStatus("ok");
+			result.setStatus(Status.OK);
 		} catch (Exception e) {
-			result.setStatus("error");
+			result.setStatus(Status.ERROR);
 			result.setData(e.getClass()+":"+e.getMessage());
 			e.printStackTrace();
 		}
 		return ResponseEntity.ok(result); 
 	}
+	
+	/*
+	 * Content-Type=application/json，请求方式post，使用@RequestBody，单个参数直接写值,是对象时写json串
+	 * delete(@RequestBody String id)
+	 * 
+	 * Content-Type=application/x-www-form-urlencoded，请求方式post，单个参数直接id=61,多个用&拼接
+	 * delete(@RequestParam("id") String id)
+	 * 
+	 * */
 }

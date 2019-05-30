@@ -1,15 +1,15 @@
 package com.eastcom.sql.bean;
 
 public class JsonResult {
-	private String status;
+	private Status status;
 	
 	private Object data;
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
