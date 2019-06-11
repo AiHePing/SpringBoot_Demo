@@ -1,6 +1,5 @@
 package com.eastcom.controller;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,23 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.eastcom.controller.util.JsonResult;
+import com.eastcom.controller.util.ParamDto;
+import com.eastcom.controller.util.Status;
 import com.eastcom.service.DeptService;
 import com.eastcom.sql.bean.Dept;
-import com.eastcom.sql.bean.JsonResult;
-import com.eastcom.sql.bean.ParamDto;
-import com.eastcom.sql.bean.Status;
+import com.eastcom.sql.bean.DeptExample;
+import com.eastcom.sql.dao.DeptDao;
 
 @Controller
 @RequestMapping("/jdbc")
 public class DetpController {
-	@Autowired
+//	@Autowired
 	private DeptService deptService;
+	
+	@Autowired
+	private DeptDao deptDao;
 	
 	@RequestMapping(value="/select",method=RequestMethod.GET)
 	public ResponseEntity<JsonResult> selectById(Integer id){
 		JsonResult result = new JsonResult();
 		try {
-			Dept data = deptService.selectById(id);
+			System.out.println(id);
+			Dept data = deptDao.selectByPrimaryKey(id);
+//			Dept data = deptService.selectById(id);
 			result.setData(data);
 			result.setStatus(Status.OK);
 		} catch (Exception e) {
@@ -48,7 +54,8 @@ public class DetpController {
 	public ResponseEntity<JsonResult> insert(@RequestBody Dept dept){
 		JsonResult result = new JsonResult();
 		try {
-			Integer insert = deptService.insert(dept);
+			Integer insert = deptDao.insertSelective(dept);
+//			Integer insert = deptService.insert(dept);
 			result.setData(insert);
 			result.setStatus(Status.OK);
 		} catch (Exception e) {
@@ -64,7 +71,12 @@ public class DetpController {
 		JsonResult result = new JsonResult();
 		try {
 			System.out.println("dto:"+ dto.toString());
-			Integer update = deptService.updateById(dto.getId(),dto.getDept());
+			
+			DeptExample example = new DeptExample();
+			example.createCriteria().andDeptnoEqualTo(dto.getId());
+			Integer update = deptDao.updateByExampleSelective(dto.getDept(), example);
+			
+//			Integer update = deptService.updateById(dto.getId(),dto.getDept());
 			result.setData(update);
 			result.setStatus(Status.OK);
 		} catch (Exception e) {
@@ -80,7 +92,11 @@ public class DetpController {
 		JsonResult result = new JsonResult();
 		try {
 			System.out.println("id :"+id);
-			Integer delete = deptService.deleteById(Integer.parseInt(id));
+			DeptExample example = new DeptExample();
+			example.createCriteria().andDeptnoEqualTo(Integer.parseInt(id));
+			Integer delete = deptDao.deleteByExample(example);
+			
+//			Integer delete = deptService.deleteById(Integer.parseInt(id));
 			result.setData(delete);
 			result.setStatus(Status.OK);
 		} catch (Exception e) {
